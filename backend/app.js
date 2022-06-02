@@ -2,6 +2,9 @@ const http = require('http');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
+const sauceRoutes = require('./routes/sauce');
+const userRoutes = require('./routes/user');
+
 
 // pb avec connect password cluster avant
 mongoose.connect('mongodb+srv://armelle:J7ZLDLzv8RXKbEq9@cluster0.bra5w.mongodb.net/piiquante?retryWrites=true&w=majority',
@@ -18,5 +21,8 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
+
+app.use('/api/sauces', sauceRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
