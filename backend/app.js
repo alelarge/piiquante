@@ -13,6 +13,10 @@ mongoose.connect('mongodb+srv://armelle:J7ZLDLzv8RXKbEq9@cluster0.bra5w.mongodb.
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+
+app.use(express.static(__dirname + '/images'));
+app.use('/images', express.static(__dirname + '/images'));
+
 app.use(express.json());
 
 app.use((req, res, next) => {
