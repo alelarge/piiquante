@@ -5,13 +5,13 @@ const fs = require("fs");
 // Create a sauce
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
+  // In case the user added an _id, we remove it from the sauce object
   delete sauceObject._id;
+  // Instantiate a new sauce
   const sauce = new Sauce({
     ...sauceObject,
     // We modify the URL of the image, we want to make it dynamic thanks to the segments of the URL
-    imageUrl: `${req.protocol}://${req.get("host")}/images/${
-      req.file.filename
-    }`,
+    imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
     likes: 0,
     dislikes: 0,
     usersLiked: [],
@@ -26,7 +26,7 @@ exports.createSauce = (req, res, next) => {
 
 // Modify a sauce
 exports.modifySauce = (req, res, next) => {
-  const sauceObject = req.body;
+  const sauceObject = JSON.parse(req.body.sauce);
 
   // Find the sauce in the database by its id
   Sauce.findOne({ _id: req.params.id }).then((sauce) => {

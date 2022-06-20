@@ -1,4 +1,3 @@
-const http = require('http');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
@@ -15,9 +14,6 @@ mongoose.connect('mongodb+srv://armelle:J7ZLDLzv8RXKbEq9@cluster0.bra5w.mongodb.
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
-// app.use(express.static(__dirname + '/images'));
-// app.use('/images', express.static(__dirname + '/images'));
-
 app.use(express.json());
 
 app.use((req, res, next) => {
